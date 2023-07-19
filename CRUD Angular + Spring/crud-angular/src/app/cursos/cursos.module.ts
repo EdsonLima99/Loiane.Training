@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import { AppMaterialModule } from '../compartilhado/app-material/app-material.module';
-import { CompartilhadoModule } from '../compartilhado/compartilhado.module';
+import { AppMaterialModule } from '../shared/app-material/app-material.module';
+import { CompartilhadoModule } from '../shared/compartilhado.module';
 import { CursosRoutingModule } from './cursos-routing.module';
 import { CursosComponent } from './cursos/cursos.component';
 

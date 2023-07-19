@@ -17,6 +17,7 @@ public class Curso {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    //@JsonProperty("id")
     private Long id;
 
     @Column(name = "nome", length = 200, nullable = false)
