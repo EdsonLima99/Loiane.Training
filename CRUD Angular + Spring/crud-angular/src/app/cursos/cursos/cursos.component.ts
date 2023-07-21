@@ -14,7 +14,6 @@ import { CursosService } from '../services/cursos.service';
 })
 export class CursosComponent implements OnInit {
   cursos$: Observable<Curso[]>;
-  colunasExibidas = ['nome', 'categoria', 'acoes'];
 
   //cursosServico: CursosService;
 

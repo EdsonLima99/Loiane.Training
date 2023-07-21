@@ -7,9 +7,10 @@ import { CompartilhadoModule } from '../shared/compartilhado.module';
 import { CursoFormularioComponent } from './curso-formulario/curso-formulario.component';
 import { CursosRoutingModule } from './cursos-routing.module';
 import { CursosComponent } from './cursos/cursos.component';
+import { CursosListaComponent } from './cursos-lista/cursos-lista.component';
 
 @NgModule({
-  declarations: [CursosComponent, CursoFormularioComponent],
+  declarations: [CursosComponent, CursoFormularioComponent, CursosListaComponent],
   imports: [
     CommonModule,
     CursosRoutingModule,
