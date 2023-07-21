@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-curso-formulario',
@@ -6,7 +7,18 @@ import { Component } from '@angular/core';
   styleUrls: ['./curso-formulario.component.scss'],
 })
 export class CursoFormularioComponent {
-  constructor() {}
+  formulario: FormGroup;
+
+  constructor(private formBuild: FormBuilder) {
+    this.formulario = this.formBuild.group({
+      nome: [null],
+      categoria: [null],
+    });
+  }
 
   ngOnInit(): void {}
+
+  onSubmit() {}
+
+  onCancel() {}
 }
