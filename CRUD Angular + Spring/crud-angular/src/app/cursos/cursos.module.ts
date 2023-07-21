@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppMaterialModule } from '../shared/app-material/app-material.module';
 import { CompartilhadoModule } from '../shared/compartilhado.module';
+import { CursoFormularioComponent } from './curso-formulario/curso-formulario.component';
 import { CursosRoutingModule } from './cursos-routing.module';
 import { CursosComponent } from './cursos/cursos.component';
 
@@ -10,7 +11,8 @@ import { CursosComponent } from './cursos/cursos.component';
 
 @NgModule({
   declarations: [
-    CursosComponent
+    CursosComponent,
+    CursoFormularioComponent
   ],
   imports: [
     CommonModule,
