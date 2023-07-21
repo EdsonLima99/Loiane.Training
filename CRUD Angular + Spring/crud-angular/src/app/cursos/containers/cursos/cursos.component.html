@@ -5,6 +5,7 @@
       <app-cursos-lista
         *ngIf="cursos$ | async as cursos; else carregando"
         [cursos]="cursos"
+        (add)="onAdd()"
       ></app-cursos-lista>
 
       <ng-template #carregando>
