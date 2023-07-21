@@ -20,6 +20,10 @@ export class CursosService {
     );
   }
 
+  buscarPorId(id: number) {
+    return this.httpCliente.get<Curso>(`${this.API}/${id}`);
+  }
+
   salvar(registro: Partial<Curso>) {
     return this.httpCliente.post<Curso>(this.API, registro).pipe(first());
   }

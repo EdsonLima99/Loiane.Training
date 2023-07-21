@@ -31,7 +31,12 @@
       </button>
     </mat-header-cell>
     <mat-cell *matCellDef="let curso" class="coluna-acoes">
-      <button mat-icon-button color="primary" aria-label="Editar Curso">
+      <button
+        mat-icon-button
+        color="primary"
+        aria-label="Editar Curso"
+        (click)="onEdit(curso)"
+      >
         <mat-icon>edit</mat-icon>
       </button>
 

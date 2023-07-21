@@ -9,7 +9,8 @@ import { Curso } from '../../model/curso';
 })
 export class CursosListaComponent {
   @Input() cursos: Curso[] = [];
-  @Output() add = new EventEmitter(false);
+  @Output() adicionar = new EventEmitter(false);
+  @Output() editar = new EventEmitter(false);
 
   readonly colunasExibidas = ['nome', 'categoria', 'acoes'];
 
@@ -18,6 +19,10 @@ export class CursosListaComponent {
   ngOnInit(): void {}
 
   onAdd() {
-    this.add.emit(true);
+    this.adicionar.emit(true);
+  }
+
+  onEdit(curso: Curso){
+    this.editar.emit(curso);
   }
 }
