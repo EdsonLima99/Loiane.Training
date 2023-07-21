@@ -20,7 +20,7 @@ export class CursosService {
     );
   }
 
-  salvar(registro: Curso) {
+  salvar(registro: Partial<Curso>) {
     return this.httpCliente.post<Curso>(this.API, registro).pipe(first());
   }
 }

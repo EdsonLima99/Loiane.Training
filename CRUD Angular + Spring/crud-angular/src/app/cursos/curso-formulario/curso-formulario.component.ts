@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { NonNullableFormBuilder } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { CursosService } from '../services/cursos.service';
@@ -11,19 +11,17 @@ import { CursosService } from '../services/cursos.service';
   styleUrls: ['./curso-formulario.component.scss'],
 })
 export class CursoFormularioComponent {
-  formulario: FormGroup;
+  formulario = this.formBuild.group({
+    nome: [''],
+    categoria: [''],
+  });
 
   constructor(
-    private formBuild: FormBuilder,
+    private formBuild: NonNullableFormBuilder,
     private servico: CursosService,
     private snackBar: MatSnackBar,
     private localizacao: Location
-  ) {
-    this.formulario = this.formBuild.group({
-      nome: [null],
-      categoria: [null],
-    });
-  }
+  ) {}
 
   ngOnInit(): void {}
 
