@@ -26,7 +26,7 @@ export class CursosComponent implements OnInit {
   ) {
     //this.cursos = [];
     //this.cursosServico = new CursosService();
-    this.cursos$ = this.cursosServico.list().pipe(
+    this.cursos$ = this.cursosServico.listar().pipe(
       catchError((error) => {
         this.onError('Erro ao carregar cursos.');
         return of([]);
