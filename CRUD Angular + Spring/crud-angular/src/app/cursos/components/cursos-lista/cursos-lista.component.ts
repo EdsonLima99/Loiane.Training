@@ -11,6 +11,7 @@ export class CursosListaComponent {
   @Input() cursos: Curso[] = [];
   @Output() adicionar = new EventEmitter(false);
   @Output() editar = new EventEmitter(false);
+  @Output() excluir = new EventEmitter(false);
 
   readonly colunasExibidas = ['nome', 'categoria', 'acoes'];
 
@@ -24,5 +25,9 @@ export class CursosListaComponent {
 
   onEdit(curso: Curso){
     this.editar.emit(curso);
+  }
+
+  onRemove(curso: Curso){
+    this.excluir.emit(curso);
   }
 }

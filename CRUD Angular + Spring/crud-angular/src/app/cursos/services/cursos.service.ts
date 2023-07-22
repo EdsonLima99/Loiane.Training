@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { delay, first, tap } from 'rxjs/operators';
+import { first } from 'rxjs/operators';
 
 import { Curso } from '../model/curso';
 
@@ -39,5 +39,9 @@ export class CursosService {
     return this.httpCliente
       .put<Curso>(`${this.API}/${registro.id}`, registro)
       .pipe(first());
+  }
+
+  excluir(id: number) {
+    return this.httpCliente.delete(`${this.API}/${id}`).pipe(first());
   }
 }

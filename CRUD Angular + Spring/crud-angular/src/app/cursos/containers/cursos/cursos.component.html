@@ -7,6 +7,7 @@
         [cursos]="cursos"
         (adicionar)="onAdd()"
         (editar)="onEdit($event)"
+        (excluir)="onRemove($event)"
       ></app-cursos-lista>
 
       <ng-template #carregando>
