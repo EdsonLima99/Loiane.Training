@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -51,14 +52,24 @@ public class CursoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Curso> atualizar(@PathVariable Long id, @RequestBody Curso curso){
+    public ResponseEntity<Curso> atualizar(@PathVariable Long id, @RequestBody Curso curso) {
         return cursoRepository.findById(id)
-        .map(registro -> {
-            registro.setNome(curso.getNome());
-            registro.setCategoria(curso.getCategoria());
-            Curso atualizado = cursoRepository.save(registro);
-            return ResponseEntity.ok().body(atualizado);
-        })
-        .orElse(ResponseEntity.notFound().build());
+                .map(registro -> {
+                    registro.setNome(curso.getNome());
+                    registro.setCategoria(curso.getCategoria());
+                    Curso atualizado = cursoRepository.save(registro);
+                    return ResponseEntity.ok().body(atualizado);
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> excluir(@PathVariable Long id) {
+        return cursoRepository.findById(id)
+                .map(registro -> {
+                    cursoRepository.deleteById(id);
+                    return ResponseEntity.noContent().<Void>build();
+                })
+                .orElse(ResponseEntity.notFound().build());
     }
 }
