@@ -52,8 +52,6 @@ public class CursoController {
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
     public Curso criar(@RequestBody @Valid Curso curso) {
-        // return ResponseEntity.status(HttpStatus.CREATED)
-        // .body(cursoRepository.save(curso));
         return cursoRepository.save(curso);
     }
 
