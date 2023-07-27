@@ -3,7 +3,6 @@ package com.edson.controller;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,10 +39,8 @@ public class CursoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Curso> buscarPorId(@PathVariable @NotNull @Positive Long id) {
-        return cursoService.buscarPorId(id)
-                .map(registro -> ResponseEntity.ok().body(registro))
-                .orElse(ResponseEntity.notFound().build());
+    public Curso buscarPorId(@PathVariable @NotNull @Positive Long id) {
+        return cursoService.buscarPorId(id);
     }
 
     // @RequestMapping(method = RequestMethod.POST)
@@ -54,17 +51,13 @@ public class CursoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Curso> atualizar(@PathVariable @NotNull @Positive Long id, @RequestBody @Valid Curso curso) {
-        return cursoService.atualizar(id, curso)
-                .map(registro -> ResponseEntity.ok().body(registro))
-                .orElse(ResponseEntity.notFound().build());
+    public Curso atualizar(@PathVariable @NotNull @Positive Long id, @RequestBody @Valid Curso curso) {
+        return cursoService.atualizar(id, curso);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> excluir(@PathVariable @NotNull @Positive Long id) {
-        if (cursoService.excluir(id)) {
-            return ResponseEntity.noContent().<Void>build();
-        }
-        return ResponseEntity.notFound().<Void>build();
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
+    public void excluir(@PathVariable @NotNull @Positive Long id) {
+        cursoService.excluir(id);
     }
 }
