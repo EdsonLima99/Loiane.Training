@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.edson.model.Curso;
-import com.edson.repository.CursoRepository;
+import com.edson.service.CursoService;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -26,24 +26,22 @@ import jakarta.validation.constraints.Positive;
 @Validated
 @RestController
 @RequestMapping("/api/cursos")
-// @AllArgsConstructor
 public class CursoController {
 
-    private final CursoRepository cursoRepository;
+    private final CursoService cursoService;
 
-    public CursoController(CursoRepository cursoRepository) {
-        this.cursoRepository = cursoRepository;
+    public CursoController(CursoService cursoService) {
+        this.cursoService = cursoService;
     }
 
-    // @RequestMapping(method = RequestMethod.GET)
     @GetMapping
     public @ResponseBody List<Curso> listar() {
-        return cursoRepository.findAll();
+        return cursoService.listar();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Curso> buscarPorId(@PathVariable @NotNull @Positive Long id) {
-        return cursoRepository.findById(id)
+        return cursoService.buscarPorId(id)
                 .map(registro -> ResponseEntity.ok().body(registro))
                 .orElse(ResponseEntity.notFound().build());
     }
@@ -52,28 +50,21 @@ public class CursoController {
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
     public Curso criar(@RequestBody @Valid Curso curso) {
-        return cursoRepository.save(curso);
+        return cursoService.criar(curso);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Curso> atualizar(@PathVariable @NotNull @Positive Long id, @RequestBody @Valid Curso curso) {
-        return cursoRepository.findById(id)
-                .map(registro -> {
-                    registro.setNome(curso.getNome());
-                    registro.setCategoria(curso.getCategoria());
-                    Curso atualizado = cursoRepository.save(registro);
-                    return ResponseEntity.ok().body(atualizado);
-                })
+        return cursoService.atualizar(id, curso)
+                .map(registro -> ResponseEntity.ok().body(registro))
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> excluir(@PathVariable @NotNull @Positive Long id) {
-        return cursoRepository.findById(id)
-                .map(registro -> {
-                    cursoRepository.deleteById(id);
-                    return ResponseEntity.noContent().<Void>build();
-                })
-                .orElse(ResponseEntity.notFound().build());
+        if (cursoService.excluir(id)) {
+            return ResponseEntity.noContent().<Void>build();
+        }
+        return ResponseEntity.notFound().<Void>build();
     }
 }
