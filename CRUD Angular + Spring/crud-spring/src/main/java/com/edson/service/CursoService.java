@@ -5,11 +5,9 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import com.edson.dto.CursoDTO;
 import com.edson.dto.mapper.CursoMapper;
-import com.edson.enums.Categoria;
 import com.edson.exception.RegistroNotFoundException;
 import com.edson.repository.CursoRepository;
 
@@ -36,7 +34,7 @@ public class CursoService {
                 .collect(Collectors.toList());
     }
 
-    public CursoDTO buscarPorId(@PathVariable @NotNull @Positive Long id) {
+    public CursoDTO buscarPorId(@NotNull @Positive Long id) {
         return cursoRepository.findById(id).map(cursoMapper::paraDTO)
                 .orElseThrow(() -> new RegistroNotFoundException(id));
     }
@@ -49,12 +47,12 @@ public class CursoService {
         return cursoRepository.findById(id)
                 .map(registro -> {
                     registro.setNome(cursoDTO.nome());
-                    registro.setCategoria(Categoria.FRONTEND);
+                    registro.setCategoria(this.cursoMapper.converterValorCategoria(cursoDTO.categoria()));
                     return cursoMapper.paraDTO(cursoRepository.save(registro));
                 }).orElseThrow(() -> new RegistroNotFoundException(id));
     }
 
-    public void excluir(@PathVariable @NotNull @Positive Long id) {
+    public void excluir(@NotNull @Positive Long id) {
         cursoRepository.delete(cursoRepository.findById(id)
                 .orElseThrow(() -> new RegistroNotFoundException(id)));
     }
