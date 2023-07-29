@@ -4,8 +4,14 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 import org.hibernate.validator.constraints.Length;
 
+import com.edson.enums.Categoria;
+import com.edson.enums.converters.CategoriaConverter;
+
 import jakarta.persistence.Column;
+import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -36,10 +42,9 @@ public class Curso {
     private String nome;
 
     @NotNull
-    @Length(max = 10)
-    @Pattern(regexp = "Back-End|Front-End")
     @Column(name = "categoria", length = 10, nullable = false)
-    private String categoria;
+    @Convert(converter = CategoriaConverter.class)
+    private Categoria categoria;
 
     @NotNull
     @Length(max = 10)

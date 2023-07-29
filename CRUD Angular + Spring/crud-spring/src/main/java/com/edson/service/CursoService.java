@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.edson.dto.CursoDTO;
 import com.edson.dto.mapper.CursoMapper;
+import com.edson.enums.Categoria;
 import com.edson.exception.RegistroNotFoundException;
 import com.edson.repository.CursoRepository;
 
@@ -48,7 +49,7 @@ public class CursoService {
         return cursoRepository.findById(id)
                 .map(registro -> {
                     registro.setNome(cursoDTO.nome());
-                    registro.setCategoria(cursoDTO.categoria());
+                    registro.setCategoria(Categoria.FRONTEND);
                     return cursoMapper.paraDTO(cursoRepository.save(registro));
                 }).orElseThrow(() -> new RegistroNotFoundException(id));
     }

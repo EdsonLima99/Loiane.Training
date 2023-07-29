@@ -3,6 +3,7 @@ package com.edson.dto.mapper;
 import org.springframework.stereotype.Component;
 
 import com.edson.dto.CursoDTO;
+import com.edson.enums.Categoria;
 import com.edson.model.Curso;
 
 @Component
@@ -12,7 +13,7 @@ public class CursoMapper {
         if (curso == null) {
             return null;
         }
-        return new CursoDTO(curso.getId(), curso.getNome(), curso.getCategoria());
+        return new CursoDTO(curso.getId(), curso.getNome(), "Front-End");
     }
 
     public Curso paraEntidade(CursoDTO cursoDTO) {
@@ -25,7 +26,7 @@ public class CursoMapper {
             curso.setId(cursoDTO.id());
         }
         curso.setNome(cursoDTO.nome());
-        curso.setCategoria(cursoDTO.categoria());
+        curso.setCategoria(Categoria.FRONTEND);
         curso.setStatus("Ativo");
         return curso;
     }
