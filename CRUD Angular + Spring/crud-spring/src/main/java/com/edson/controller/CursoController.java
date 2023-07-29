@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.edson.model.Curso;
+import com.edson.dto.CursoDTO;
 import com.edson.service.CursoService;
 
 import jakarta.validation.Valid;
@@ -34,25 +34,25 @@ public class CursoController {
     }
 
     @GetMapping
-    public @ResponseBody List<Curso> listar() {
+    public @ResponseBody List<CursoDTO> listar() {
         return cursoService.listar();
     }
 
     @GetMapping("/{id}")
-    public Curso buscarPorId(@PathVariable @NotNull @Positive Long id) {
+    public CursoDTO buscarPorId(@PathVariable @NotNull @Positive Long id) {
         return cursoService.buscarPorId(id);
     }
 
-    // @RequestMapping(method = RequestMethod.POST)
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
-    public Curso criar(@RequestBody @Valid Curso curso) {
-        return cursoService.criar(curso);
+    public CursoDTO criar(@RequestBody @Valid @NotNull CursoDTO cursodDTO) {
+        return cursoService.criar(cursodDTO);
     }
 
     @PutMapping("/{id}")
-    public Curso atualizar(@PathVariable @NotNull @Positive Long id, @RequestBody @Valid Curso curso) {
-        return cursoService.atualizar(id, curso);
+    public CursoDTO atualizar(@PathVariable @NotNull @Positive Long id,
+            @RequestBody @Valid @NotNull CursoDTO cursodDTO) {
+        return cursoService.atualizar(id, cursodDTO);
     }
 
     @DeleteMapping("/{id}")

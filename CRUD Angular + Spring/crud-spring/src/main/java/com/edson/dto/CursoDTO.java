@@ -8,5 +8,5 @@ import jakarta.validation.constraints.Pattern;
 
 public record CursoDTO(Long id,
         @NotBlank @NotNull @Length(min = 5, max = 100) String nome,
-        @NotNull @Length(max = 10) @Pattern(regexp = "Back-end|Front-end") String categoria) {
+        @NotNull @Length(max = 10) @Pattern(regexp = "Back-End|Front-End") String categoria) {
 }
