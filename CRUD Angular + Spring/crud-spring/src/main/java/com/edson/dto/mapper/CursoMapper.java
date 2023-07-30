@@ -13,7 +13,8 @@ public class CursoMapper {
         if (curso == null) {
             return null;
         }
-        return new CursoDTO(curso.getId(), curso.getNome(), curso.getCategoria().getValor());
+        return new CursoDTO(curso.getId(), curso.getNome(), curso.getCategoria().getValor(),
+                curso.getAulas());
     }
 
     public Curso paraEntidade(CursoDTO cursoDTO) {
