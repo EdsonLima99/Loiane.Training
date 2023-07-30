@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import com.edson.enums.Categoria;
+import com.edson.model.Aula;
 import com.edson.model.Curso;
 import com.edson.repository.CursoRepository;
 
@@ -24,7 +25,13 @@ public class CrudSpringApplication {
 			Curso curso = new Curso();
 			curso.setNome("Angular com Spring");
 			curso.setCategoria(Categoria.FRONTEND);
-	
+			
+			Aula a = new Aula();
+			a.setNome("Introdução");
+			a.setYoutubeURL("Nb4uxLxdvxo");
+			a.setCurso(curso);
+			curso.getAulas().add(a);
+
 			cursoRepository.save(curso);
 		};
 	}
