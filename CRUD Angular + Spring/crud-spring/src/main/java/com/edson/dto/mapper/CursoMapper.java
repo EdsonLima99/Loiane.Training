@@ -1,7 +1,11 @@
 package com.edson.dto.mapper;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.stereotype.Component;
 
+import com.edson.dto.AulaDTO;
 import com.edson.dto.CursoDTO;
 import com.edson.enums.Categoria;
 import com.edson.model.Curso;
@@ -13,8 +17,13 @@ public class CursoMapper {
         if (curso == null) {
             return null;
         }
+
+        List<AulaDTO> aulas = curso.getAulas().stream()
+                .map(aula -> new AulaDTO(aula.getId(), aula.getNome(), aula.getYoutubeURL()))
+                .collect(Collectors.toList());
+
         return new CursoDTO(curso.getId(), curso.getNome(), curso.getCategoria().getValor(),
-                curso.getAulas());
+                aulas);
     }
 
     public Curso paraEntidade(CursoDTO cursoDTO) {
