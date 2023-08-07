@@ -37,6 +37,7 @@ export class CursoFormularioComponent {
       nome: curso.nome,
       categoria: curso.categoria,
     });
+    console.log(curso);
   }
 
   onSubmit() {
