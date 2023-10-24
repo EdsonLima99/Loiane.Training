@@ -1,6 +1,7 @@
+import { Aula } from './../../model/aula';
 import { Location } from '@angular/common';
 import { Component } from '@angular/core';
-import { NonNullableFormBuilder, Validators } from '@angular/forms';
+import { FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 
@@ -13,14 +14,7 @@ import { CursosService } from '../../services/cursos.service';
   styleUrls: ['./curso-formulario.component.scss'],
 })
 export class CursoFormularioComponent {
-  formulario = this.formBuild.group({
-    id: [0],
-    nome: [
-      '',
-      [Validators.required, Validators.minLength(5), Validators.maxLength(100)],
-    ],
-    categoria: ['', [Validators.required]],
-  });
+  formulario!: FormGroup;
 
   constructor(
     private formBuild: NonNullableFormBuilder,
@@ -32,12 +26,34 @@ export class CursoFormularioComponent {
 
   ngOnInit(): void {
     const curso: Curso = this.route.snapshot.data['curso'];
-    this.formulario.setValue({
-      id: curso.id,
-      nome: curso.nome,
-      categoria: curso.categoria,
+    this.formulario = this.formBuild.group({
+      id: [curso.id],
+      nome: [
+        curso.nome,
+        [Validators.required, Validators.minLength(5), Validators.maxLength(100)],
+      ],
+      categoria: [curso.categoria, [Validators.required]],
+      aula: this.formBuild.array(this.obterAulas(curso))
     });
     console.log(curso);
+  }
+
+  private obterAulas(curso: Curso){
+    const aulas = [];
+    if(curso?.aula){
+      curso.aula.forEach(aula => {aulas.push(this.criarLicao(aula))});
+    }else{
+      aulas.push(this.criarLicao());
+    }
+    return aulas;
+  }
+
+  private criarLicao(aula: Aula = {id: 0, nome: '', youtubeURL: ''}){
+    return this.formBuild.group({
+      id: [aula.id],
+      nome: [aula.nome, [Validators.required]],
+      youtubeURL: [aula.youtubeURL, [Validators.required]]
+    })
   }
 
   onSubmit() {
